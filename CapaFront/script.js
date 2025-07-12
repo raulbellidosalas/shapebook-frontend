@@ -1,5 +1,5 @@
 // API Base URL - Ajusta según tu configuración
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://shapebook-production.up.railway.app//api';
 
 // State management
 let currentUser = null;
