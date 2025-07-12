@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shapebook - Plataforma Tecnológica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Shapebook</div>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="#" class="active" onclick="showSection('home')">Inicio</a></li>
+                      
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <button class="btn btn-secondary" onclick="showModal('loginModal')">Iniciar Sesión</button>
+                    <button class="btn btn-primary" onclick="showModal('registerModal')">Registrarse</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Bienvenido a Shapebook</h1>
+                <p class="page-subtitle">
+                    La plataforma líder para profesionales y entusiastas de la tecnología. 
+                    Comparte conocimientos, descubre las últimas tendencias y conecta con la comunidad tech.
+                </p>
+            </div>
+
+            <div class="forum-layout">
+                <!-- 
+                
+                
+                -->
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <h3>Categorías</h3>
+                    <ul class="category-list" id="categoryList">
+                        <li class="category-item">
+                            <a href="#" onclick="filterByCategory('programacion')">
+                                💻 Programación
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" onclick="filterByCategory('ia')">
+                                🤖 Inteligencia Artificial
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" onclick="filterByCategory('hardware')">
+                                ⚙️ Hardware
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" onclick="filterByCategory('mobile')">
+                                📱 Desarrollo Mobile
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" onclick="filterByCategory('cloud')">
+                                ☁️ Cloud Computing
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <!-- Main Content -->
+                <section class="main-content">
+                    <div class="content-header">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Buscar posts, usuarios..." class="search-input" id="searchInput">
+                            <button class="btn btn-primary" onclick="searchPosts()">Buscar</button>
+                        </div>
+                        <button class="btn btn-primary" onclick="showModal('createPostModal')">+ Crear Post</button>
+                    </div>
+
+                    <div id="postsContainer">
+                        <!-- Posts will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Chat Widget -->
+                <aside class="chat-widget">
+                    <div class="chat-header">
+                        💬 Chat General
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Messages will be loaded here -->
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Escribe un mensaje..." id="chatInput">
+                        <button class="btn btn-primary" onclick="sendMessage()">Enviar</button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Iniciar Sesión</h2>
+                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Registrarse</h2>
+                <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerUsername">Nombre de Usuario</label>
+                    <input type="text" id="registerUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div id="createPostModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Crear Nuevo Post</h2>
+                <button class="close-btn" onclick="closeModal('createPostModal')">&times;</button>
+            </div>
+            <form id="createPostForm">
+                <div class="form-group">
+                    <label for="postTitle">Título</label>
+                    <input type="text" id="postTitle" required>
+                    <input type="text" id="postTags" placeholder="tag1, tag2, tag3"> 
+                </div>
+                <div class="form-group">
+                    <label for="postCategory">Categoría</label>
+                    <select id="postCategory" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="programacion">Programación</option>
+                        <option value="ia">Inteligencia Artificial</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="mobile">Desarrollo Mobile</option>
+                        <option value="cloud">Cloud Computing</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="postContent">Contenido</label>
+                    <textarea id="postContent" placeholder="Escribe tu post aquí..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Publicar Post</button>
+            </form>
+        </div>
+    </div>
+
+ <!-- EDIT POST MODAL - Add this right after create post modal -->
+    <div id="editPostModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Editar Post</h2>
+                <button class="close-btn" onclick="closeModal('editPostModal')">&times;</button>
+            </div>
+            <form id="editPostForm">
+                <input type="hidden" id="editPostId">
+                
+                <div class="form-group">
+                    <label for="editPostTitle">Título</label>
+                    <input type="text" id="editPostTitle" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editPostContent">Contenido</label>
+                    <textarea id="editPostContent" rows="5" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editPostCategory">Categoría</label>
+                    <select id="editPostCategory" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="programacion">Programación</option>
+                        <option value="ia">Inteligencia Artificial</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="mobile">Desarrollo Mobile</option>
+                        <option value="cloud">Cloud Computing</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editPostTags">Tags (separados por comas)</label>
+                    <input type="text" id="editPostTags">
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
